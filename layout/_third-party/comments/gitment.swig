@@ -21,9 +21,21 @@
 
     {% if page.comments %}
       <script type="text/javascript">
+       function getGitmentId(date)
+       {
+          var pageDate  = new Date(date);
+                  Y = pageDate.getFullYear() + '-';
+                  M = (pageDate.getMonth()+1 < 10 ? '0'+(pageDate.getMonth()+1) : pageDate.getMonth()+1) + '-';
+                  D = pageDate.getDate() + ' ';
+                  h = pageDate.getHours() + ':';
+                  m = pageDate.getMinutes() + ':';
+                  s = pageDate.getSeconds(); 
+          return Y+M+D+h+m+s; 
+       }
+
       function renderGitment(){
-        var gitment = new {{CommentsClass}}({
-            id: window.location.pathname, 
+        var gitment = new {{CommentsClass}}({   
+            id:  getGitmentId({{ page.date }}),  
             owner: '{{ theme.gitment.github_user }}',
             repo: '{{ theme.gitment.github_repo }}',
             {% if theme.gitment.mint %}
